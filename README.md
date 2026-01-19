@@ -55,5 +55,8 @@ http://127.0.0.1:5000/
 - Bedrooms
 - Bathrooms
 
+  output
+  ![Image](https://github.com/user-attachments/assets/bdc86be2-fa1c-4908-9686-2586fe0c6504)
+
 ## Output
 Predicted house price.
