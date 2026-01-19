@@ -55,4 +55,7 @@ http://127.0.0.1:5000/
 - Bedrooms
 - Bathrooms
 
+Output
+![Image](https://github.com/user-attachments/assets/7e077807-e00c-4ad6-8252-1c23862156b2)
+
 
