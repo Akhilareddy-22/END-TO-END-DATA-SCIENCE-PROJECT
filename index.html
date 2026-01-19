@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+
+        <form id="predictionForm">
+            <input type="number" id="area" placeholder="Area (sq ft)" required>
+            <input type="number" id="bedrooms" placeholder="Bedrooms" required>
+            <input type="number" id="bathrooms" placeholder="Bathrooms" required>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get values from form
+            const area = document.getElementById('area').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const bathrooms = document.getElementById('bathrooms').value;
+
+            // Show loading message
+            document.getElementById('result').innerHTML = '<p>Calculating prediction...</p>';
+
+            try {
+                // Send data to backend API
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        area: parseFloat(area),
+                        bedrooms: parseInt(bedrooms),
+                        bathrooms: parseInt(bathrooms)
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('result').innerHTML = `<h2>${data.message}</h2>`;
+                } else {
+                    document.getElementById('result').innerHTML = `<h2>Error: ${data.error}</h2>`;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<h2>Error: ${error.message}</h2>`;
+            }
+        });
+    </script>
+</body>
+</html>
